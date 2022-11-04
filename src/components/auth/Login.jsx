@@ -98,9 +98,9 @@ const Login = () => {
       </FormControl>
 
       <Button
-        onClick={() => {
-          onSubmit();
-        }}
+        onClick={
+          onSubmit
+        }
         colorScheme="green"
         width="100%"
         style={{ marginTop: "15px" }}
