@@ -10,7 +10,7 @@ const ChatContext = createContext()
     const userInfo = JSON.parse( localStorage.getItem("userInfo"))
     setUser(userInfo)
     if(!userInfo){
-        // history.push('/')
+        history.push('/')
     }
      
     }, [history])

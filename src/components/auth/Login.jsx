@@ -78,7 +78,7 @@ const Login = () => {
         />
       </FormControl>
 
-      <FormControl id="password" isRequired>
+      <FormControl id="passwordLogin" isRequired>
         <FormLabel>Password</FormLabel>
         <InputGroup>
           <Input

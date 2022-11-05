@@ -16,7 +16,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [pic, setPic] = useState("");
+  const [picture, setPic] = useState("");
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
@@ -99,8 +99,10 @@ const Register = () => {
         name,
         email,
         password,
-        pic,
+        picture,
       });
+      console.log(picture);
+      console.log(data);
       toast({
         title: "You are Registered",
         description: "Registered",
@@ -136,7 +138,7 @@ const Register = () => {
         />
       </FormControl>
 
-      <FormControl id="email" isRequired>
+      <FormControl id="emailRegister" isRequired>
         <FormLabel>Email</FormLabel>
         <Input
           placeholder="Enter your email"
@@ -164,7 +166,7 @@ const Register = () => {
         </InputGroup>
       </FormControl>
 
-      <FormControl id="password" isRequired>
+      <FormControl id="passwordConfirm" isRequired>
         <FormLabel>Confirm Password</FormLabel>
         <InputGroup>
           <Input
@@ -177,7 +179,7 @@ const Register = () => {
         </InputGroup>
       </FormControl>
 
-      <FormControl id="pic" isRequired>
+      <FormControl id="picture" isRequired>
         <FormLabel>Picture</FormLabel>
         <Input
           type={"file"}
