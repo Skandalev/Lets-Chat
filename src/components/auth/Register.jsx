@@ -95,7 +95,7 @@ const Register = () => {
       // const config ={
       //   headers:{"Content-type":"application/json"},
       // }
-      const { data } = await axios.post("/api/user", {
+      const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/user`, {
         name,
         email,
         password,

@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuItem, MenuList, Spinner, Text,  Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../context/ChatProvider'
 import Profile from './Profile'
 import { ArrowDownIcon } from '@chakra-ui/icons'
@@ -7,20 +7,37 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import ChatLoading from './ChatLoading'
 import UserListItem from './UserListItem'
-
+import NotificationBadge, { Effect } from 'react-notification-badge'
 const SideDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const {user,setSelectedChat,chats, setChats} = ChatState()
+    const {user,setSelectedChat,chats, setChats,notifications, setNotifications,setUser} = ChatState()
     const [search, setSearch] = useState("")
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
     const [loadingChat, setLoadingChat] = useState()
     const history = useHistory()
     const toast = useToast() 
+useEffect(() => {
+  getAllUsers()
+},[isOpen])
+
+const getAllUsers= async()=>{
+  const config ={
+    headers:{
+      Authorization: `Bearer ${user.token}`
+    }
+  }
+  const {data} = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user?search=g`,config)
+  setSearchResult(data)
+}
   const logOut = ()=>{
     localStorage.removeItem("userInfo")
+    setUser({})
     history.push('/')
   }
+  const getSender = (loggedUser, users) => {
+    return loggedUser&&users[0]._id === loggedUser._id ? users[1].name : users[0].name;
+  };
   const handleSearch = async()=>{
     console.log(search);
     if(!search){
@@ -40,7 +57,7 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`
         }
       }
-      const {data} = await axios.get(`/api/user?search=${search}`,config)
+      const {data} = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user?search=${search}`,config)
       setLoading(false)
       setSearchResult(data)
       console.log(data);
@@ -63,7 +80,7 @@ const SideDrawer = () => {
       headers:{
         Authorization: `Bearer ${user.token}`
       }}
-      const {data} = await axios.post('/api/chat',{userId},config)
+      const {data} = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/chat`,{userId},config)
       if(!chats.find((e)=>e._id===data._id)){
         setChats([data,...chats])
       }
@@ -83,6 +100,7 @@ const SideDrawer = () => {
 
     }
   }
+
   return (
     <>
     <Box style={{display:"flex"}}  bg='white'
@@ -107,9 +125,23 @@ const SideDrawer = () => {
  <div>
     <Menu>
         <MenuButton p={1}>
+          <NotificationBadge
+          count={notifications.length}
+          effect={Effect.SCALE}
+          />
         <i className="fa-solid fa-bell" style={{fontSize:"2xl" ,margin:"1"}}></i>
         </MenuButton>
-        {/* <MenuList></MenuList> */}
+        <MenuList>
+          {!notifications.length&&"No new Messages"}
+          {notifications.length&&notifications.map(notif=>{
+            return <MenuItem key={notif._id} onClick={()=>{
+              setSelectedChat(notif.chat)
+              setNotifications(notifications.filter((n)=>n !==notif ))
+            }}>
+              {notif.chat.isGroupChat? `New Message in ${notif.chat.chatName}`:`New Message from ${getSender(user,notif.chat.users)}`}
+            </MenuItem>
+          })}
+        </MenuList>
     </Menu>
     <Menu>
     <MenuButton as={Button}   >
@@ -146,7 +178,7 @@ const SideDrawer = () => {
            </Button>
         </Box>
         {loading?
-         <ChatLoading/>  : searchResult.map((user)=>{ 
+         <ChatLoading/>  :searchResult&& searchResult.map((user)=>{ 
         return  <UserListItem
           key={user._id}
           user={user}

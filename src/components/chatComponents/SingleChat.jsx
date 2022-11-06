@@ -18,12 +18,12 @@ import ScrollChat from "./ScrollChat";
 import io from "socket.io-client"
 import Lottie from 'react-lottie'
 import animationData from '../../typingAnimation.json'
-const ENDPOINT = "http://localhost:5000"
+const ENDPOINT = "https://letschat-skandalev.herokuapp.com"
 
 let socket,selectedChatCompare
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-  const { user, selectedChat, setSelectedChat } = ChatState();
+  const { user, selectedChat, setSelectedChat ,notifications, setNotifications} = ChatState();
   const toast = useToast();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -58,11 +58,24 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     getMessages();
     selectedChatCompare = selectedChat
   }, [selectedChat]);
-  
+
 useEffect(() => {
+  notifications.forEach(element => {
+    console.log(element.chat._id);
+  });
+
+
   socket.on("message recieved",(newMessageRecieved)=>{
     if(!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id){
-      //notification
+       if(!notifications.includes(newMessageRecieved)){
+       const filteredNoti= notifications.filter((element) => 
+          element.chat._id !== newMessageRecieved.chat._id
+        );
+        setNotifications([newMessageRecieved,...filteredNoti])
+        setFetchAgain(!fetchAgain)
+       }
+      
+
     }else{
       setMessages([...messages,newMessageRecieved])
     }
@@ -72,7 +85,6 @@ useEffect(() => {
   
 
   const sendMessage = async (e) => {
-
     if ((newMessage && e === undefined) || (e.key === "Enter" && newMessage)) {
       socket.emit('stop typing',selectedChat._id)
       try {
@@ -83,7 +95,7 @@ useEffect(() => {
         };
         setNewMessage("");
         const { data } = await axios.post(
-          "/api/message",
+          `${process.env.REACT_APP_BASE_URL}/api/message`,
           {
             content: newMessage,
             chatId: selectedChat._id,
@@ -118,7 +130,7 @@ useEffect(() => {
       };
       setLoading(true);
       const { data } = await axios.get(
-        `/api/message/${selectedChat._id}`,
+        `${process.env.REACT_APP_BASE_URL}/api/message/${selectedChat._id}`,
         config
       );
       setMessages(data);
@@ -232,6 +244,7 @@ useEffect(() => {
                 <ScrollChat messages={messages}></ScrollChat>
               </div>
             )}
+             
             
             <FormControl
               onKeyDown={sendMessage}
@@ -239,13 +252,17 @@ useEffect(() => {
               mt={3}
               style={{ display: "flex" }}
             >
-               {isTyping&& !typing && <div style={{textAlign:"left"}} >
+                     {isTyping&& !typing && <div style={{textAlign:"left"}} >
               <Lottie
+              
               options={defaultOptions}
               width={50}
-              style={{marginBottom:0,marginLeft:0}}
+              style={{marginBottom:0,marginLeft:0 ,position:"relative",
+             
+             }}
               />
-             </div> }  
+             </div> } 
+        
               <Input
                 variant="filled"
                 placeholder="Type..."

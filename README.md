@@ -1,70 +1,101 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Lets-Talk Messanger Application
 
-## Available Scripts
+Mern application Lets-Talk! For chatting with friends and family.
 
-In the project directory, you can run:
+Open-source. You are welcome!
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Table of Content
 
-### `npm test`
+1. [ Description ](#Description)
+2. [ Netlify Demo ](#Demo)
+3. [ How to Use ](#use)
+4. [ Pictures ](#Pictures)
+5. [ Built with ](#Builtwith)
+6. [ To-do ](#To-do)
+7. [ Author ](#Author)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Description <a name="Description"></a>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ Responsive Messanger made with the Mern stack.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ You are welcome to register and log in. Chat with your friends and family.
+Make group chats, add users and remove them. 
+Real-time messages with notifications.
+The app is encrypted and fully private.
 
-### `npm run eject`
+ The site is connected with MongoDB DataBase.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+ The server is running on Heroku(Hope it will stay free)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+ If you want to see the server code you are welcome to enter: [Server](https://github.com/Skandalev/Lets-Talk-server)
+ 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Demo version on netlify <a name="Demo"></a>
+[Lets-Talk!](https://lets-talk-skandalev.netlify.app/)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## How to use? <a name="use"></a>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Clone this repository
+$ git clone              
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Go into the repository
 
-### Code Splitting
+$ npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+$ npm start
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Pictures <a name="Pictures"></a>
 
-### Making a Progressive Web App
+### Login
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![](https://res.cloudinary.com/dumgi49os/image/upload/v1667720503/samples/gitHub/login_xkobre.png)
 
-### Advanced Configuration
+### Chats
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![](https://res.cloudinary.com/dumgi49os/image/upload/v1667720801/samples/gitHub/newChat_flpmeq.png)
 
-### Deployment
+### New Group Chat
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+![](https://res.cloudinary.com/dumgi49os/image/upload/v1667720793/samples/gitHub/newGroupchat_k4zx9c.png)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Mobile support
+The WebApp is compatible with devices of all sizes and all OS's, and consistent improvements are being made.
+
+
+
+## Built with  <a name="Builtwith"></a>
+
+### Front End
+- React
+- Axios
+- Router
+- Socket.io
+- Chakra-ui
+
+### Back End
+
+- Express
+- Mongoose
+- Socket.io
+- Jsonwebtoken 
+- Dotenv
+- Bcrypt
+
+
+## To-do   <a name="To-do"></a>
+- Make the the App faster
+- Add Chat-bots
+
+## Author  <a name="Author"></a>
+
+© [Skandalev ](https://github.com/Skandalev)
+

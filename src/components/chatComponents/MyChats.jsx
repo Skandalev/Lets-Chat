@@ -17,8 +17,7 @@ const MyChats = ({fetchAgain}) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get("/api/chat", config);
-      console.log(data);
+      const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/chat`, config);
       setChats(data);
     } catch (error) {
       toast({
@@ -105,7 +104,7 @@ const MyChats = ({fetchAgain}) => {
                 </Text>
                 {chat.latestMessage && (
                   <Text fontSize="xs">
-                    <b>{chat.latestMessage.sender.name} : </b>
+                    <b>{chat.latestMessage.sender.name}</b>
                     {chat.latestMessage.content.length > 50
                       ? chat.latestMessage.content.substring(0, 51) + "..."
                       : chat.latestMessage.content}

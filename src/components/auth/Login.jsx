@@ -11,8 +11,10 @@ import {
 } from "@chakra-ui/react";
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
-
+import { ChatState } from '../../context/ChatProvider'
+  
 const Login = () => {
+  const {setUser} = ChatState()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
@@ -39,7 +41,7 @@ const Login = () => {
       // const config ={
       //   headers:{"Content-type":"application/json"},
       // }
-      const {data} = await axios.post("/api/user/login",{email,password})
+      const {data} = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/user/login`,{email,password})
       toast({
         title: 'You are Logged',
         description: "Logged In",
@@ -49,6 +51,7 @@ const Login = () => {
         position: "top"
       })
       localStorage.setItem('userInfo',JSON.stringify(data))
+      setUser(data)
       setLoading(false)
       history.push('/chats')
     
