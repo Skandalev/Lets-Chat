@@ -10,6 +10,12 @@ const MyChats = ({fetchAgain}) => {
   const [loggedUser, setLoggedUser] = useState();
   const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
   const toast = useToast();
+    useEffect(() => {
+      
+    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+   if(user){
+    getChats();}
+  }, [fetchAgain,user])
   const getChats = async () => {
     try {
       const config = {
@@ -22,7 +28,7 @@ const MyChats = ({fetchAgain}) => {
     } catch (error) {
       toast({
         title: "Error fetching the chats",
-        description: "",
+        description: error.message,
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -30,10 +36,7 @@ const MyChats = ({fetchAgain}) => {
       });
     }
   };
-  useEffect(() => {
-    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-    getChats();
-  }, [fetchAgain]);
+
    const getSender = (loggedUser, users) => {
     return loggedUser&&users[0]._id === loggedUser._id ? users[1].name : users[0].name;
   };

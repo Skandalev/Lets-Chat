@@ -1,5 +1,5 @@
 
-# Lets-Talk Messanger Application
+# Lets-Talk Messenger Application
 
 Mern application Lets-Talk! For chatting with friends and family.
 

@@ -18,7 +18,9 @@ const SideDrawer = () => {
     const history = useHistory()
     const toast = useToast() 
 useEffect(() => {
+  if(isOpen){
   getAllUsers()
+}
 },[isOpen])
 
 const getAllUsers= async()=>{
@@ -27,7 +29,7 @@ const getAllUsers= async()=>{
       Authorization: `Bearer ${user.token}`
     }
   }
-  const {data} = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user?search=g`,config)
+  const {data} = await  axios.get(`${process.env.REACT_APP_BASE_URL}/api/user?search=g`,config)
   setSearchResult(data)
 }
   const logOut = ()=>{
